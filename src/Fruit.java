@@ -1,6 +1,6 @@
 import processing.core.PApplet;
 
-public class Fruit {
+public class Fruit {   //list of problems: balls getting out before leaving bottom, the game too hard, broken pieces
     public float x;
     public float y;
 private int color;
@@ -14,7 +14,8 @@ private boolean AliveFruit = true;
 
 
 
-public Fruit(String specificfruitname, int ypos, PApplet c ){
+
+public Fruit(String specificfruitname, PApplet c ){
     x = c.random(0,800);
    if(x<400){
         xVelocity = c.random(0,5);
@@ -29,16 +30,17 @@ public Fruit(String specificfruitname, int ypos, PApplet c ){
     if(fruitname.equals("apple")){
         appleSetup();
     }
-    yVelocity = -15;
+    yVelocity = canvas.random(-15, -10);
     
-    
+   
 
    
     }
     
 public void display(){
-   launchBall();
   
+if(AliveFruit){
+
 
     if (fruitname.equals("apple")){
         appleSetup();
@@ -46,25 +48,38 @@ public void display(){
         kiwiVisiual();
     }
 
-    canvas.circle(x, y, size);
+   launchBall(); 
+        color = canvas.color(255, 0, 0);
+
+}
+}
+// else{
+//     launchBall();
+//      canvas.circle(x,y, 10);
+//     canvas.circle(x,y, 10);
+//     canvas.circle(x,y, 10);
+//     canvas.circle(x,y, 10);
+//     canvas.circle(x,y, 10);
+
+// }
+   
 
    
        
-        color = canvas.color(255, 0, 0);
 
     
-}
 
 public void appleSetup(){
     color = canvas.color(168, 5, 5);
     canvas.fill(color);
+    canvas.circle(x, y, size);
+
     size = 75;
 
 }
 
 public void kiwiVisiual(){
-    canvas.fill(color);
-    color = canvas.color(5, 84, 17);
+    canvas.fill(5,84,17);
     canvas.circle(x, y, size);
     size = 50;
 
@@ -75,20 +90,46 @@ public void kiwiVisiual(){
 
 public boolean checkTouch(int mouseX, int mouseY) {
     float distanceFromCenter = canvas.dist(x, y, mouseX, mouseY);
-    if (distanceFromCenter < size / 2) {
+    if (distanceFromCenter < size / 2 ) {
         System.out.println("dead");
-        gravity = 1.3f;
+AliveFruit = false;
+int starttime = canvas.frameCount;
+System.out.println(starttime);
+
+// yVelocity =6;
+       
+        if (canvas.frameCount -starttime < 50) { 
+            System.out.println(canvas.frameCount);
+            canvas.fill(color);
+            canvas.textSize(32);
+            canvas.text("+ 1 POINT!", x, y);}
+
         return false;
     } else {
-        System.out.println("alive");
-        return true;
-    }
+       
+    }        return true;
+
 }
 
-private void launchBall(){
+public void launchBall(){
     yVelocity += gravity;
     y += yVelocity;
     x+= xVelocity;
+
 }
 
+
+
+public boolean hitBottom(){
+    // System.out.println("checking bottom");
+    if (y + size / 2 > canvas.height ){
+        // AliveFruit = false;
+        System.out.println("hit bottom"); 
+        return true;
+        }     
+else{
+    return false;
+}
+       
+}
 }
