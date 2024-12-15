@@ -11,7 +11,6 @@ public class Fruit { // list of problems: balls getting out before leaving botto
     private float gravity;
     private float yVelocity;
     private float xVelocity;
-    private boolean AliveFruit = true;
 
     public Fruit(String specificfruitname, PApplet c, String difficulty) {
         x = c.random(0, 800);
@@ -24,24 +23,23 @@ public class Fruit { // list of problems: balls getting out before leaving botto
         y = 550;
         canvas = c;
         fruitname = specificfruitname;
-        gravity = .3f;
+        gravity = .2f;
         if (fruitname.equals("apple")) {
             appleSetup();
         }
 
-        if (difficulty.equals("easy")){
-            yVelocity = canvas.random(-17, -10);
+        if (difficulty.equals("easy")) {
+            yVelocity = canvas.random(-15, -8);
 
-        }else{
-            yVelocity = canvas.random(-12, -8);
+        } else {
+            yVelocity = canvas.random(-10, -6);
         }
-       
 
     }
 
     public void display() {
 
-        if (AliveFruit) {
+     
 
             if (fruitname.equals("apple")) {
                 appleSetup();
@@ -52,8 +50,6 @@ public class Fruit { // list of problems: balls getting out before leaving botto
             launchBall();
             color = canvas.color(255, 0, 0);
 
-
-        }
     }
     // else{
     // launchBall();
@@ -66,6 +62,7 @@ public class Fruit { // list of problems: balls getting out before leaving botto
     // }
 
     public void appleSetup() {
+        canvas.noStroke();
         color = canvas.color(168, 5, 5);
         canvas.fill(color);
         canvas.circle(x, y, size);
@@ -75,6 +72,7 @@ public class Fruit { // list of problems: balls getting out before leaving botto
     }
 
     public void kiwiVisiual() {
+        canvas.noStroke();
         canvas.fill(5, 84, 17);
         canvas.circle(x, y, size);
         size = 50;
@@ -85,12 +83,8 @@ public class Fruit { // list of problems: balls getting out before leaving botto
         float distanceFromCenter = canvas.dist(x, y, mouseX, mouseY);
         if (distanceFromCenter < size / 2) {
             System.out.println("dead");
-            AliveFruit = false;
-            
-
 
             // yVelocity =6;
-
             return true;
         } else {
 

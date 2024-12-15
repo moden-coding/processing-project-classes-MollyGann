@@ -1,15 +1,18 @@
 import java.util.ArrayList;
 
-import processing.core.*;
+import processing.core.*    ;
 
 public class App extends PApplet {
     ArrayList<Fruit> fruits;
+    ArrayList<Pieces> piecesgroups;
     private int livesleft = 3;
     private int scoreofhitfruit = 0;
     private boolean touchTimer;
     private int starttime;
     private int mousehitX;
     private int mousehitY;
+    private boolean ballHit;
+    private int gamescreen = 0;
     PVector[] circlesswordparts = { new PVector(-1200, 100), new PVector(-1200, 100), new PVector(-1200, 100) };
 
     public static void main(String[] args) {
@@ -19,7 +22,7 @@ public class App extends PApplet {
 
     public void setup() {
         fruits = new ArrayList<>();
-
+        piecesgroups = new ArrayList<>();
         background(59, 35, 6);
 
     }
@@ -27,7 +30,6 @@ public class App extends PApplet {
     public void settings() {
         size(800, 600);
     }
-
     public void draw() {
         background(59, 35, 6);
 
@@ -35,25 +37,19 @@ public class App extends PApplet {
 
         displaySword();
 
+        // fill(255);
+        // textSize(40);
+        // text("Lives: " + livesleft, 550, 30); //
+
+        drawXs();
         fill(255);
         textSize(40);
-        text("Lives: " + livesleft, 550, 30);
-        fill(255);
-        textSize(40);
-        text("Score: " + scoreofhitfruit, 550, 60);
+        text("Score: " + scoreofhitfruit, 10, 33);
 
-        if (touchTimer) {
+        plusOne();
+        createPieces();
+        showPieces();
 
-            System.out.println("Startime: " + starttime);
-
-            if (frameCount <= starttime + 25) {
-                fill(255);
-                textSize(32);
-                text("+ 1 POINT!", mousehitX - 50, mousehitY - 25);
-            } else {
-                touchTimer = false;
-            }
-        }
 
     }
 
@@ -78,6 +74,7 @@ public class App extends PApplet {
                 mousehitX = mouseX;
                 mousehitY = mouseY;
 
+                ballHit = true;
             }
         }
     }
@@ -90,6 +87,7 @@ public class App extends PApplet {
     }
 
     public void displaySword() {
+        noStroke();
         if (circlesswordparts[0] != null) {
             for (int i = 0; i < circlesswordparts.length; i++) {
                 fill(i * 100);
@@ -107,9 +105,9 @@ public class App extends PApplet {
     }
 
     // public void keyPressed() {
-    //     if (key == ' ') {
-    //         fruits.add(new Fruit("apple", this));
-    //     }
+    // if (key == ' ') {
+    // fruits.add(new Fruit("apple", this, ""));
+    // }
     // }
 
     public void hittingBottom() {
@@ -120,7 +118,8 @@ public class App extends PApplet {
                 System.out.println("off screen");
                 livesleft--;
                 fruits.remove(f);
-                i--;
+                i--;;
+                ballHit = false;
             }
         }
         // System.out.println(fruits.size());
@@ -154,5 +153,68 @@ public class App extends PApplet {
 
         }
     }
+
+    public void plusOne() {
+        if (touchTimer) {
+            if (frameCount <= starttime + 25) {
+                fill(255);
+                textSize(32);
+                text("+ 1 POINT!", mousehitX - 50, mousehitY - 25);
+            }
+        } else {
+            touchTimer = false;
+        }
+    }
+
+    public void drawXs() {
+        stroke(255);
+        if (livesleft <= 2) { // first X
+            stroke(168, 5, 5);
+        } else {
+            stroke(255);
+        }
+        strokeWeight(10);
+        line(670, 15, 690, 40);
+        line(690, 15, 670, 40);
+        
+
+        if (livesleft <= 1) { // 2nd X
+            stroke(168, 5, 5);
+        } else {
+            stroke(255);
+        }
+        line(710, 15, 730, 40); 
+        line(730, 15, 710, 40);
+        
+
+        if (livesleft <= 0) {// 3rd X
+            stroke(168, 5, 5);
+        } else {
+            stroke(255);
+        }
+        line(750, 15, 770, 40);
+        line(770, 15, 750, 40);
+
+        stroke(255);
+    }
+
+    public void createPieces() {
+       
+        if (ballHit == true) {
+            System.out.println("pieces is happening");
+            piecesgroups.add(new Pieces(mousehitX, mousehitY, this));
+            // System.out.println(piecesgroups.size());
+            ballHit = false;
+            
+        }
+    }
+    public void showPieces(){
+        for (Pieces p : piecesgroups) {
+
+            p.displayAll();
+        }
+    }
+
+    // public voud 
 
 }
