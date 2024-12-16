@@ -37,6 +37,14 @@ public class Fruit { // list of problems: balls getting out before leaving botto
 
     }
 
+    public float getXVelocity(){
+        return xVelocity;
+    }
+
+    public float piecesColor(){
+        return color;
+    }
+
     public void display() {
 
      
@@ -51,15 +59,10 @@ public class Fruit { // list of problems: balls getting out before leaving botto
             color = canvas.color(255, 0, 0);
 
     }
-    // else{
-    // launchBall();
-    // canvas.circle(x,y, 10);
-    // canvas.circle(x,y, 10);
-    // canvas.circle(x,y, 10);
-    // canvas.circle(x,y, 10);
-    // canvas.circle(x,y, 10);
 
-    // }
+
+
+
 
     public void appleSetup() {
         canvas.noStroke();
@@ -97,6 +100,7 @@ public class Fruit { // list of problems: balls getting out before leaving botto
         yVelocity += gravity;
         y += yVelocity;
         x += xVelocity;
+
 
     }
 

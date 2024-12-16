@@ -1,17 +1,16 @@
 import java.util.ArrayList;
 
-import processing.core.*    ;
+import processing.core.*;
 
 public class App extends PApplet {
     ArrayList<Fruit> fruits;
-    ArrayList<Pieces> piecesgroups;
+    ArrayList<Piece> pieces;
     private int livesleft = 3;
     private int scoreofhitfruit = 0;
     private boolean touchTimer;
     private int starttime;
     private int mousehitX;
     private int mousehitY;
-    private boolean ballHit;
     private int gamescreen = 0;
     PVector[] circlesswordparts = { new PVector(-1200, 100), new PVector(-1200, 100), new PVector(-1200, 100) };
 
@@ -22,7 +21,7 @@ public class App extends PApplet {
 
     public void setup() {
         fruits = new ArrayList<>();
-        piecesgroups = new ArrayList<>();
+        pieces = new ArrayList<>();
         background(59, 35, 6);
 
     }
@@ -30,6 +29,7 @@ public class App extends PApplet {
     public void settings() {
         size(800, 600);
     }
+
     public void draw() {
         background(59, 35, 6);
 
@@ -47,9 +47,7 @@ public class App extends PApplet {
         text("Score: " + scoreofhitfruit, 10, 33);
 
         plusOne();
-        createPieces();
         showPieces();
-
 
     }
 
@@ -74,7 +72,7 @@ public class App extends PApplet {
                 mousehitX = mouseX;
                 mousehitY = mouseY;
 
-                ballHit = true;
+                createPieces(f.getXVelocity(), f.piecesColor());
             }
         }
     }
@@ -118,8 +116,8 @@ public class App extends PApplet {
                 System.out.println("off screen");
                 livesleft--;
                 fruits.remove(f);
-                i--;;
-                ballHit = false;
+                i--;
+                ;
             }
         }
         // System.out.println(fruits.size());
@@ -176,16 +174,14 @@ public class App extends PApplet {
         strokeWeight(10);
         line(670, 15, 690, 40);
         line(690, 15, 670, 40);
-        
 
         if (livesleft <= 1) { // 2nd X
             stroke(168, 5, 5);
         } else {
             stroke(255);
         }
-        line(710, 15, 730, 40); 
+        line(710, 15, 730, 40);
         line(730, 15, 710, 40);
-        
 
         if (livesleft <= 0) {// 3rd X
             stroke(168, 5, 5);
@@ -198,23 +194,36 @@ public class App extends PApplet {
         stroke(255);
     }
 
-    public void createPieces() {
-       
-        if (ballHit == true) {
-            System.out.println("pieces is happening");
-            piecesgroups.add(new Pieces(mousehitX, mousehitY, this));
-            // System.out.println(piecesgroups.size());
-            ballHit = false;
+    public void createPieces(float xVel, float piecesColor) {
+
+        System.out.println("pieces is happening");
+        for (int i = 0; i <= 3; i++) {
+            pieces.add(new Piece(mousehitX, mousehitY, xVel, piecesColor, this));
+            System.out.println(pieces.size());
             
-        }
-    }
-    public void showPieces(){
-        for (Pieces p : piecesgroups) {
 
-            p.displayAll();
         }
     }
 
-    // public voud 
+    public void showPieces() {
+        // for (int i = 0; i <= pieces.size(); i++) {
+        //     Piece p = pieces.get(i);
 
+        for(Piece p: pieces){
+            
+             p.display();
+            p.move();
+
+        // }
+
+           
+            // if(p.piecehitsbottom()){
+            // pieces.remove(p);
+            // }
+        }
+    }
 }
+
+    // public voud
+
+
