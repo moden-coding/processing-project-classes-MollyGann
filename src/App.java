@@ -73,6 +73,8 @@ public class App extends PApplet {
                 mousehitY = mouseY;
 
                 createPieces(f.getXVelocity(), f.piecesColor());
+
+                System.out.println(f.piecesColor());
             }
         }
     }
@@ -197,7 +199,7 @@ public class App extends PApplet {
     public void createPieces(float xVel, float piecesColor) {
 
         System.out.println("pieces is happening");
-        for (int i = 0; i <= 3; i++) {
+        for (int i = 0; i <3; i++) {
             pieces.add(new Piece(mousehitX, mousehitY, xVel, piecesColor, this));
             System.out.println(pieces.size());
             
@@ -206,10 +208,10 @@ public class App extends PApplet {
     }
 
     public void showPieces() {
-        // for (int i = 0; i <= pieces.size(); i++) {
-        //     Piece p = pieces.get(i);
+        for (int i = 0; i <pieces.size(); i++) {
+            Piece p = pieces.get(i);
 
-        for(Piece p: pieces){
+        // for(Piece p: pieces){
             
              p.display();
             p.move();
@@ -217,9 +219,9 @@ public class App extends PApplet {
         // }
 
            
-            // if(p.piecehitsbottom()){
-            // pieces.remove(p);
-            // }
+            if(p.piecehitsbottom()){
+            pieces.remove(p);
+            }
         }
     }
 }

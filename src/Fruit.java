@@ -43,6 +43,8 @@ public class Fruit { // list of problems: balls getting out before leaving botto
 
     public float piecesColor(){
         return color;
+        
+       
     }
 
     public void display() {
@@ -56,7 +58,6 @@ public class Fruit { // list of problems: balls getting out before leaving botto
             }
 
             launchBall();
-            color = canvas.color(255, 0, 0);
 
     }
 
@@ -76,7 +77,8 @@ public class Fruit { // list of problems: balls getting out before leaving botto
 
     public void kiwiVisiual() {
         canvas.noStroke();
-        canvas.fill(5, 84, 17);
+        color= canvas.color(5, 84, 17);
+        canvas.fill(color);
         canvas.circle(x, y, size);
         size = 50;
 
@@ -86,7 +88,7 @@ public class Fruit { // list of problems: balls getting out before leaving botto
         float distanceFromCenter = canvas.dist(x, y, mouseX, mouseY);
         if (distanceFromCenter < size / 2) {
             System.out.println("dead");
-
+System.out.println(color);
             // yVelocity =6;
             return true;
         } else {

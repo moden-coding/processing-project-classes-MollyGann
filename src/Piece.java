@@ -4,7 +4,7 @@ public class Piece {
     private PApplet canvas;
     private int x;
     private int y;
-    private int size = 5;
+    private int size = 15;
     private float gravity;
     private float yVelocity;
     private double xVelocity;
@@ -24,8 +24,8 @@ fruitcolor = piecesColor;
 
 
     public void display() {
-        // System.out.println("pieces one" + yVelocity);
-color = (fruitcolor);
+        canvas.noStroke();
+canvas.fill(fruitcolor);
         canvas.circle(x, y, size);
 
         gravity = .1f;
