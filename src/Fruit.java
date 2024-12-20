@@ -1,7 +1,6 @@
 import processing.core.PApplet;
 
-public class Fruit { // list of problems: balls getting out before leaving bottom, the game too hard,
-                     // broken pieces
+public class Fruit {
     public float x;
     public float y;
     private int color;
@@ -53,8 +52,10 @@ public class Fruit { // list of problems: balls getting out before leaving botto
 
             if (fruitname.equals("apple")) {
                 appleSetup();
-            } else {
+            } else if (fruitname.equals("kiwi")){
                 kiwiVisiual();
+            }else{
+                mangoVisiual();
             }
 
             launchBall();
@@ -83,12 +84,20 @@ public class Fruit { // list of problems: balls getting out before leaving botto
         size = 50;
 
     }
+    public void mangoVisiual() {
+        canvas.noStroke();
+        color= canvas.color(240, 160, 12);
+        canvas.fill(color);
+        canvas.circle(x, y, size);
+        size = 60;
+
+    }
 
     public boolean checkTouch(int mouseX, int mouseY) {
         float distanceFromCenter = canvas.dist(x, y, mouseX, mouseY);
         if (distanceFromCenter < size / 2) {
             System.out.println("dead");
-System.out.println(color);
+// System.out.println(color);
             // yVelocity =6;
             return true;
         } else {

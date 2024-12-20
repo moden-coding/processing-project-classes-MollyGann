@@ -4,22 +4,22 @@ public class Piece {
     private PApplet canvas;
     private int x;
     private int y;
-    private int size = 15;
+    private int size; 
     private float gravity;
     private float yVelocity;
     private double xVelocity;
     // private float xVelocity2;
     // private float xVelocity3;
-    private float fruitcolor;
+    private int fruitcolor;
 
     public Piece(int xball, int yball, float xVel, float piecesColor, PApplet c) {
         x = xball;
         y = yball;
         canvas = c;
         yVelocity = 2;
-xVelocity = xVel +canvas.random(-.5f,.5f);
-fruitcolor = piecesColor;
-
+xVelocity = xVel +canvas.random(-.9f,.3f);
+fruitcolor = (int)piecesColor;
+size = (int)canvas.random(15,30);
     }
 
 
@@ -28,25 +28,9 @@ fruitcolor = piecesColor;
 canvas.fill(fruitcolor);
         canvas.circle(x, y, size);
 
-        gravity = .1f;
+        gravity = .2f;
 
     }
-
-    // public void displayPiece2() {
-    //     // System.out.println("pieces two"+yVelocity);
-    //     color = canvas.color(255);
-    //     canvas.circle(x + 10, y +10, size);
-    //     gravity = .3f;
-    //     yVelocity = canvas.random(9, 20);
-    // }
-
-    // public void displayPiece3(){
-    //     // System.out.println("pieces three" + yVelocity);
-    //     color = canvas.color(255);
-    //     canvas.circle(x -10, y + 10, size);
-    //     gravity = .2f;
-    //     yVelocity = 3;
-    // }
 
     public void move() {
         yVelocity += gravity;
@@ -62,6 +46,10 @@ canvas.fill(fruitcolor);
         } else {
             return false;
         }
+    }
+
+    public String toString(){
+        return "x: " + x+ " y: "+ y + " xvelocity: "+ xVelocity+" yvelocity: " + yVelocity;
     }
     
 }
